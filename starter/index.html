@@ -1,18 +1,3 @@
-<!-- 
-Copyright 2024 Google LLC
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
- -->
 <!doctype html>
 <html lang="en">
   <head>
@@ -25,24 +10,23 @@ limitations under the License.
       name="description"
       content="" />
     <style>
-
+ 
       :root {
-        background-color: rgb(37, 37, 43);
+        background-color: rgb(11, 11, 62);
       }
-
-
+ 
       body {
         margin: 0;
         font-family: sans-serif;
       }
-
+ 
       .ALL{
         max-width: fit-content;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
       }
-      
+ 
       #app {
         width: 60rem;
         height: 40rem;
@@ -50,20 +34,73 @@ limitations under the License.
         border-radius: 50px;
         overflow: hidden;
       }
-
+ 
+      .buses {
+        background: #ffffff;
+        width: 25rem; /* Set a width for the buses section */
+        height: 50%;
+        border: solid black 2px;
+        border-radius: 50px;
+        margin-left: 20px; /* Adds some space between the two sections */
+        display: flex;
+        color: rgb(35, 34, 44);
+        align-items: center;
+        flex-direction: column; /* Ensures the h2's are stacked vertically */
+        margin-bottom: 20px;
+ 
+      }
+ 
+      .infoContainer {
+        height: 80vh;
+      }
+ 
       .title {
         color: aliceblue;
       }
-
+ 
       .input {
         width: 200px;
       }
-
+ 
+      .container {
+        display: flex;
+        justify-content: space-between; /* Ensures there's space between the two sections */
+        align-items: center;
+        margin-top: 20px;
+        padding: 20px;
+      }
+ 
+      .listEl {
+        margin-bottom: 8px;
+      }
+ 
     </style>
   </head>
-  <body>
-    <div id="app"></div>
-    <div id="apped"></div>
-    <script type="module" src="/src/main.tsx"></script>
+  <body class="ALL">
+    <h1 class="title">🚌 Brampton Transit Bus Forecaster 🚌</h1>
+    <div class="container">
+      <div id="app">
+        <script type="module" src="/src/main.tsx"></script>
+      </div>
+      <div id="apped"></div>
+     
+      <div class="infoContainer">
+          <div class="buses">
+            <h2>Popular Buses</h2>
+            <li class="listEl">511 Zum Steeles</li>
+            <li class="listEl">2 Main Street</li>
+            <li class="listEl">1 Queen Street</li>
+          </div>
+          <div class="buses">
+            <h2>Popular Events</h2>
+            <li class="listEl">Musical @ Rose Theatre</li>
+            <li class="listEl">Steeles vs Barrie Colts @ Rose Theatre</li>
+            <li class="listEl">Petting Zoo Day @ Chinguacousy Park </li>
+            <li class="listEl">Sports Game @ Sheridan Davis Campus</li>
+          </div>
+      </div>
+    </div>
+   
+    <h4 class="title">Made with &#x2665;&#xfe0f; in Brampton @ BramHacks 2024</h4>
   </body>
 </html>

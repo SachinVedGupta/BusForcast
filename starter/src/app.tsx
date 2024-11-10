@@ -1210,31 +1210,7 @@ const App: React.FC = () => {
   const root = createRoot(document.getElementById("app"));
   root.render(<TheMap />);
 
-  return (
-    <div>
-      <h1>Event Data</h1>
-      {error && <p style={{ color: "red" }}>Error: {error}</p>}
-      <ul>
-        {events.map((event, index) => (
-          <li key={index}>
-            <p>
-              <strong>Event Name:</strong> {event.name}
-            </p>
-            <p>
-              <strong>Location:</strong> {event.location_name}
-            </p>
-            <p>
-              <strong>Latitude:</strong> {event.latitude}
-            </p>
-            <p>
-              <strong>Longitude:</strong> {event.longitude}
-            </p>
-            <hr />
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  return <div>{error && <p style={{ color: "red" }}>Error: {error}</p>}</div>;
 };
 
 export default App;
