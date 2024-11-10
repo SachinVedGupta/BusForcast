@@ -13,42 +13,52 @@ import {
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import type { Marker } from "@googlemaps/markerclusterer";
 import { Circle } from "./components/circle";
+import Input from "./components/input";
 
 const App: React.FC = () => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState<string | null>(null);
+  type Poi = { key: string; location: google.maps.LatLngLiteral };
+  const [locations, setLocations] = useState<Poi[]>([]);
 
   useEffect(() => {
-    const loadEvents = async () => {
+    console.log("USE EFFECT RAN");
+    const fetchLocations = async () => {
       try {
-        // Define the input for the API call
-        const runInput = {
-          startUrls: [
-            "https://www.facebook.com/events/search?q=brampton&filters=eyJycF9ldmVudHNfbG9jYXRpb246MCI6IntcIm5hbWVcIjpcImZpbHRlcl9ldmVudHNfbG9jYXRpb25cIixcImFyZ3NcIjpcIjExMDE4NTA4NTY2ODcwMlwifSIsImZpbHRlcl9ldmVudHNfZGF0ZV9yYW5nZTowIjoie1wibmFtZVwiOlwiZmlsdGVyX2V2ZW50c19kYXRlXCIsXCJhcmdzXCI6XCIyMDI0LTExLTA0fjIwMjQtMTEtMTBcIn0ifQ%3D%3D",
-          ],
-          maxEvents: 10,
-        };
+        const response = await fetch("http://localhost:5000/api/fetch-events", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        });
+        const data = await response.json();
 
-        // Fetch data from the backend
-        const data = await fetchEvents(runInput);
-        console.log("Fetched Events:", data); // Debugging: log fetched data
-        setEvents(data);
-      } catch (err) {
-        setError(err.message);
+        // Map the response to the `Poi` type
+        const fetchedLocations: Poi[] = data.map((event: any) => ({
+          key: event.name,
+          location: {
+            lat: parseFloat(event.latitude),
+            lng: parseFloat(event.longitude),
+          },
+        }));
+
+        setLocations(fetchedLocations);
+      } catch (error) {
+        console.error("Error fetching events:", error);
       }
     };
 
-    loadEvents();
+    fetchLocations();
   }, []);
 
-  type Poi = { key: string; location: google.maps.LatLngLiteral };
-  const locations: Poi[] = [
-    { key: "operaHouse", location: { lat: -33.8567844, lng: 151.213108 } },
-    { key: "tarongaZoo", location: { lat: -33.8472767, lng: 151.2188164 } },
-    { key: "manlyBeach", location: { lat: -33.8209738, lng: 151.2563253 } },
-    { key: "Home", location: { lat: 43.6323, lng: -79.7672 } },
-    // Add other locations...
-  ];
+  // const locations: Poi[] = [
+  //   { key: "operaHouse", location: { lat: -33.8567844, lng: 151.213108 } },
+  //   { key: "tarongaZoo", location: { lat: -33.8472767, lng: 151.2188164 } },
+  //   { key: "manlyBeach", location: { lat: -33.8209738, lng: 151.2563253 } },
+  //   { key: "Home", location: { lat: 43.6323, lng: -79.7672 } },
+  //   // Add other locations...
+  // ];
 
   // Example of start and end points that you want to connect
   const routeCoordinates = [
@@ -1058,118 +1068,33 @@ const App: React.FC = () => {
   ];
 
   const TheMap = () => (
-    <APIProvider
-      apiKey={"AIzaSyB3nBgYHz5t3vyrCFNVEMveFwW4SoLVhjs"}
-      onLoad={() => console.log("Maps API has loaded.")}
-    >
-      <Map
-        defaultZoom={13}
-        defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-        onCameraChanged={(ev: MapCameraChangedEvent) =>
-          console.log(
-            "camera changed:",
-            ev.detail.center,
-            "zoom:",
-            ev.detail.zoom
-          )
-        }
-        mapId="YOUR_MAP_ID"
-        options={{
-          styles: [
-            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-            {
-              elementType: "labels.text.stroke",
-              stylers: [{ color: "#242f3e" }],
-            },
-            {
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#746855" }],
-            },
-            {
-              featureType: "administrative.locality",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "poi",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "geometry",
-              stylers: [{ color: "#263c3f" }],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#6b9a76" }],
-            },
-            {
-              featureType: "road",
-              elementType: "geometry",
-              stylers: [{ color: "#38414e" }],
-            },
-            {
-              featureType: "road",
-              elementType: "geometry.stroke",
-              stylers: [{ color: "#212a37" }],
-            },
-            {
-              featureType: "road",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#9ca5b3" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry",
-              stylers: [{ color: "#746855" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry.stroke",
-              stylers: [{ color: "#1f2835" }],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#f3d19c" }],
-            },
-            {
-              featureType: "transit",
-              elementType: "geometry",
-              stylers: [{ color: "#2f3948" }],
-            },
-            {
-              featureType: "transit.station",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#d59563" }],
-            },
-            {
-              featureType: "water",
-              elementType: "geometry",
-              stylers: [{ color: "#17263c" }],
-            },
-            {
-              featureType: "water",
-              elementType: "labels.text.fill",
-              stylers: [{ color: "#515c6d" }],
-            },
-            {
-              featureType: "water",
-              elementType: "labels.text.stroke",
-              stylers: [{ color: "#17263c" }],
-            },
-          ],
-        }}
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <APIProvider
+        apiKey={"AIzaSyB3nBgYHz5t3vyrCFNVEMveFwW4SoLVhjs"}
+        onLoad={() => console.log("Maps API has loaded.")}
       >
-        <PoiMarkers
-          pois={locations}
-          routeCoordinates={routeCoordinates}
-          lineColors={lineColors}
-        />
-      </Map>
-    </APIProvider>
+        <Map
+          defaultZoom={13}
+          defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
+          onCameraChanged={(ev: MapCameraChangedEvent) =>
+            console.log(
+              "camera changed:",
+              ev.detail.center,
+              "zoom:",
+              ev.detail.zoom
+            )
+          }
+          mapId="YOUR_MAP_ID"
+        >
+          <PoiMarkers
+            pois={locations}
+            routeCoordinates={routeCoordinates}
+            lineColors={lineColors}
+          />
+        </Map>
+      </APIProvider>
+      <Input style={{ zindex: 1 }} />
+    </div>
   );
 
   const PoiMarkers = (props: {
@@ -1218,6 +1143,7 @@ const App: React.FC = () => {
         }
       });
     };
+
     // Draw multiple routes with different colors based on the routeCoordinates array
     useEffect(() => {
       if (map) {
@@ -1262,7 +1188,7 @@ const App: React.FC = () => {
           fillColor={"#3b82f6"}
           fillOpacity={0.3}
         />
-        {props.pois.map((poi: Poi) => (
+        {locations.map((poi: Poi) => (
           <AdvancedMarker
             key={poi.key}
             position={poi.location}
