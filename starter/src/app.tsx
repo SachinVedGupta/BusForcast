@@ -46,4 +46,16 @@ const App: React.FC = () => {
   );
 };
 
+
+
+
 export default App;
+<<<<<<< HEAD
+=======
+
+
+
+
+const root = createRoot(document.getElementById('app'));
+root.render(<App />);
+>>>>>>> f71f2d527926d8ad3884fb12928420142b125aff
