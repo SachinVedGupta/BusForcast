@@ -1,3 +1,4 @@
+// src/app.tsx
 import { fetchEvents } from "./api";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
@@ -14,7 +15,7 @@ import type { Marker } from "@googlemaps/markerclusterer";
 import { Circle } from "./components/circle";
 import Input from "./components/input";
 
-const App = () => {
+const App: React.FC = () => {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState<string | null>(null);
   type Poi = { key: string; location: google.maps.LatLngLiteral };
@@ -43,7 +44,6 @@ const App = () => {
         }));
 
         setLocations(fetchedLocations);
-        findNearest();
       } catch (error) {
         console.error("Error fetching events:", error);
       }
@@ -51,6 +51,14 @@ const App = () => {
 
     fetchLocations();
   }, []);
+
+  // const locations: Poi[] = [
+  //   { key: "operaHouse", location: { lat: -33.8567844, lng: 151.213108 } },
+  //   { key: "tarongaZoo", location: { lat: -33.8472767, lng: 151.2188164 } },
+  //   { key: "manlyBeach", location: { lat: -33.8209738, lng: 151.2563253 } },
+  //   { key: "Home", location: { lat: 43.6323, lng: -79.7672 } },
+  //   // Add other locations...
+  // ];
 
   // Example of start and end points that you want to connect
   const routeCoordinates = [
@@ -376,98 +384,46 @@ const App = () => {
     },
   ];
 
-  const findNearest = () => {
-    console.log("COORDS COMPARISION");
-
-    var closestStPoint = [
-      {
-        lat: 0,
-        lng: 0,
-      },
-    ];
-
-    var closestEnPoint = [
-      {
-        lat: 0,
-        lng: 0,
-      },
-    ];
-
-    var tempDistStart = 100;
-    var minWidthStart = 100;
-    var minWidthEnd = 100;
-    var tempDistEnd = 100;
-
-    for (var j = 0; j < locations.length; j++) {
-      console.log(locations[j]);
-      console.log("in");
-      for (var i = 0; i < routeCoordinates.length; i++) {
-        tempDistStart =
-          Math.pow(
-            locations[j].location.lat - routeCoordinates[i].start.lat,
-            2
-          ) +
-          Math.pow(
-            locations[j].location.lng - routeCoordinates[i].start.lng,
-            2
-          );
-        tempDistEnd =
-          Math.pow(locations[j].location.lat - routeCoordinates[i].end.lat, 2) +
-          Math.pow(locations[j].location.lat - routeCoordinates[i].end.lng, 2);
-
-        if (tempDistStart < minWidthStart) {
-          console.log(routeCoordinates[i]);
-          minWidthStart = tempDistStart;
-          closestStPoint[0].lat = routeCoordinates[i].start.lat;
-          closestStPoint[0].lng = routeCoordinates[i].start.lng;
-        }
-
-        if (tempDistEnd < minWidthEnd) {
-          console.log(routeCoordinates[i]);
-          minWidthEnd = tempDistEnd;
-          closestEnPoint[0].lat = routeCoordinates[i].start.lat;
-          closestEnPoint[0].lng = routeCoordinates[i].start.lng;
-        }
-      }
-    }
-
-    if (minWidthEnd < minWidthStart) {
-      console.log(closestEnPoint);
-    } else {
-      console.log(closestStPoint);
-    }
-  };
+  
 
   const lineColors = [
-    "#FF5733", // Red
     "#3357FF", // Blue
-    "#3357FF", // Blue
-    "#3357FF", // Blue
-    "#3357FF", // Blue
-    "#3357FF", // Blue
+    "#FFFF33", // Yellow
+    "#FF33FF", // Pink
+    "#33FFFF", // Cyan
+    "#FF8C00", // Orange
     // Add more colors if you have more routes
   ];
 
-  // const TheMap = () => (
-  //   <div style={{ width: "80rem", height: "100vh" }}>
-  //     <APIProvider
-  //       apiKey={"AIzaSyB3nBgYHz5t3vyrCFNVEMveFwW4SoLVhjs"}
-  //       onLoad={() => console.log("Maps API has loaded.")}
-  //     >
-  //       <Map
-  //         defaultZoom={13}
-  //         defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-  //         mapId="YOUR_MAP_ID"
-  //       >
-  //         <PoiMarkers
-  //           pois={locations}
-  //           routeCoordinates={routeCoordinates}
-  //           lineColors={lineColors}
-  //         />
-  //       </Map>
-  //     </APIProvider>
-  //   </div>
-  // );
+  const TheMap = () => (
+    <div style={{ width: "100vw", height: "100vh" }}>
+      <APIProvider
+        apiKey={"AIzaSyB3nBgYHz5t3vyrCFNVEMveFwW4SoLVhjs"}
+        onLoad={() => console.log("Maps API has loaded.")}
+      >
+        <Map
+          defaultZoom={13}
+          defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
+          onCameraChanged={(ev: MapCameraChangedEvent) =>
+            console.log(
+              "camera changed:",
+              ev.detail.center,
+              "zoom:",
+              ev.detail.zoom
+            )
+          }
+          mapId="YOUR_MAP_ID"
+        >
+          <PoiMarkers
+            pois={locations}
+            routeCoordinates={routeCoordinates}
+            lineColors={lineColors}
+          />
+        </Map>
+      </APIProvider>
+      <Input style={{ zindex: 1 }} />
+    </div>
+  );
 
   const PoiMarkers = (props: {
     pois: Poi[];
@@ -579,61 +535,10 @@ const App = () => {
     );
   };
 
-  // const root = createRoot(document.getElementById("root"));
-  // root.render(<TheMap />);
+  const root = createRoot(document.getElementById("app"));
+  root.render(<TheMap />);
 
-  return (
-    <div
-      style={{
-        display: "flex",
-        marginLeft: "auto",
-        marginRight: "auto",
-        width: "65rem",
-        height: "40rem",
-        border: "2px solid black",
-        justify: "space-between",
-      }}
-    >
-      <div
-        style={{
-          width: "60rem",
-          height: "100%",
-          border: "4px solid grey",
-          borderRadius: "20px",
-          boxSizing: "border-box",
-          overflow: "hidden",
-        }}
-      >
-        <APIProvider
-          apiKey={"AIzaSyAXbKCAfstjaqeiE3kiBkvG89zksVXAIMA"}
-          onLoad={() => console.log("Maps API has loaded.")}
-        >
-          <Map
-            defaultZoom={13}
-            defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
-            mapId="YOUR_MAP_ID"
-          >
-            <PoiMarkers
-              pois={locations}
-              routeCoordinates={routeCoordinates}
-              lineColors={lineColors}
-            />
-          </Map>
-        </APIProvider>
-      </div>
-      <div style={{ width: "400px", height: "100px" }}>
-        <button
-          type="submit"
-          onClick={(e) => {
-            location.reload();
-          }}
-          style={{ width: "30%", height: "30%", borderRadius: "20px" }}
-        >
-          Next Week
-        </button>
-      </div>
-    </div>
-  );
+  return <div>{error && <p style={{ color: "red" }}>Error: {error}</p>}</div>;
 };
 
 export default App;

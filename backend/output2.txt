@@ -1,5 +1,5 @@
 Results from dataset:
-Event: Brampton – Pet Valu – (905) 458-0915
+Event: Brampton ï¿½ Pet Valu ï¿½ (905) 458-0915
 Location Name: 150 West Dr, Brampton, ON L6T 4P9, Canada
 Latitude: 43.7074
 Longitude: -79.7333
@@ -8,6 +8,11 @@ Event: Wild West Wednesday Line Dancing INSIDE Spot 1 Grill & Music Hall in Bram
 Location Name: Spot 1 Grill & Music Hall
 Latitude: 43.68572
 Longitude: -79.7252199
+
+Event: OPEN HOUSE: 384 Centre St N., Brampton
+Location Name: 384 Centre St N, Brampton, ON L6V 3L6, Canada
+Latitude: 43.70816
+Longitude: -79.7714
 
 Event: OPEN HOUSE: 384 Centre St N., Brampton
 Location Name: 384 Centre St N, Brampton, ON L6V 3L6, Canada
@@ -24,12 +29,12 @@ Location Name: Bovaird Fionn MacCool's (120 Great Lakes Drive, Brampton, ON, Can
 Latitude: 43.729896861216
 Longitude: -79.764367635541
 
-Event: Brampton – Pet Valu - (905) 451-6513
+Event: Brampton ï¿½ Pet Valu - (905) 451-6513
 Location Name: 370 Main St. N. Brampton, ON L6V 4A4
 Latitude: 43.69601
 Longitude: -79.77241
 
-Event: Brampton – Pet Valu - (905) 866-6802
+Event: Brampton ï¿½ Pet Valu - (905) 866-6802
 Location Name: 9445 Mississauga Rd, Brampton, ON L6X 0Z8, Canada
 Latitude: 43.65602
 Longitude: -79.81417
