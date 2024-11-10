@@ -3,18 +3,21 @@ from flask_cors import CORS
 from apify_client import ApifyClient
 
 app = Flask(__name__)
-CORS(app)
 
+
+
+CORS(app)
+import random
 @app.route('/api/fetch-events', methods=['POST'])
 def fetch_events():
     try:
         # Initialize ApifyClient with your token
-        client = ApifyClient("apify_api_1BdDn1sdURrVSZvK4JdHjoeaQBwpFv1lqilf")
+        client = ApifyClient("apify_api_ECGXPFPE327Rs9wlTSIRIdj0F9MBgt1B3CF3")
 
         # Prepare the Actor input (use searchQueries if provided in request, or startUrls as fallback)
         run_input = request.json.get("run_input", {
             "startUrls": ["https://www.facebook.com/events/search?q=brampton&filters=eyJycF9ldmVudHNfbG9jYXRpb246MCI6IntcIm5hbWVcIjpcImZpbHRlcl9ldmVudHNfbG9jYXRpb25cIixcImFyZ3NcIjpcIjExMDE4NTA4NTY2ODcwMlwifSIsImZpbHRlcl9ldmVudHNfZGF0ZV9yYW5nZTowIjoie1wibmFtZVwiOlwiZmlsdGVyX2V2ZW50c19kYXRlXCIsXCJhcmdzXCI6XCIyMDI0LTExLTA0fjIwMjQtMTEtMTBcIn0ifQ%3D%3D"],
-            "maxEvents": 10,
+            "maxEvents": random.randint(3, 9),
         })
 
         # Execute the Apify Actor and wait for it to complete

@@ -21,86 +21,49 @@
       }
  
       .ALL{
-        max-width: fit-content;
         margin-left: auto;
         margin-right: auto;
         text-align: center;
       }
  
-      #app {
-        width: 60rem;
-        height: 40rem;
-        border: solid black 2px;
-        border-radius: 50px;
-        overflow: hidden;
-      }
- 
-      .buses {
+      /* .buses {
         background: #ffffff;
-        width: 25rem; /* Set a width for the buses section */
+        width: 25rem; 
         height: 50%;
         border: solid black 2px;
         border-radius: 50px;
-        margin-left: 20px; /* Adds some space between the two sections */
+        margin-left: 20px; 
         display: flex;
         color: rgb(35, 34, 44);
         align-items: center;
-        flex-direction: column; /* Ensures the h2's are stacked vertically */
+        flex-direction: column; 
         margin-bottom: 20px;
  
-      }
- 
-      .infoContainer {
-        height: 80vh;
-      }
- 
+      } */
+
+
       .title {
         color: aliceblue;
       }
  
-      .input {
-        width: 200px;
-      }
- 
-      .container {
+
+      .footer {
         display: flex;
-        justify-content: space-between; /* Ensures there's space between the two sections */
+        width: 100vw;
+        height: 6rem;
+        color: #ffffff;
+        background: rgb(7, 7, 40);
+        justify-content: center;
         align-items: center;
-        margin-top: 20px;
-        padding: 20px;
       }
- 
-      .listEl {
-        margin-bottom: 8px;
-      }
- 
     </style>
   </head>
   <body class="ALL">
     <h1 class="title">🚌 Brampton Transit Bus Forecaster 🚌</h1>
-    <div class="container">
-      <div id="app">
-        <script type="module" src="/src/main.tsx"></script>
-      </div>
-      <div id="apped"></div>
-     
-      <div class="infoContainer">
-          <div class="buses">
-            <h2>Popular Buses</h2>
-            <li class="listEl">511 Zum Steeles</li>
-            <li class="listEl">2 Main Street</li>
-            <li class="listEl">1 Queen Street</li>
-          </div>
-          <div class="buses">
-            <h2>Popular Events</h2>
-            <li class="listEl">Musical @ Rose Theatre</li>
-            <li class="listEl">Steeles vs Barrie Colts @ Rose Theatre</li>
-            <li class="listEl">Petting Zoo Day @ Chinguacousy Park </li>
-            <li class="listEl">Sports Game @ Sheridan Davis Campus</li>
-          </div>
-      </div>
+    <div id="root">
+      <script type="module" src="/src/main.tsx"></script>
     </div>
-   
-    <h4 class="title">Made with &#x2665;&#xfe0f; in Brampton @ BramHacks 2024</h4>
+
+    <h4 class="footer">Made with &#x2665;&#xfe0f; in Brampton @ BramHacks 2024</h4>
   </body>
 </html>
