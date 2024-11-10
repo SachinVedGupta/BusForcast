@@ -1,0 +1,71 @@
+Results from dataset:
+Event: We Will Rock You by Brampton Music Theatre
+Location Name: The Rose Mainstage
+Latitude: 43.68726
+Longitude: -79.76008
+
+Event: Brampton – Pet Valu – (905) 458-0915
+Location Name: 150 West Dr, Brampton, ON L6T 4P9, Canada
+Latitude: 43.7074
+Longitude: -79.7333
+
+Event: Wild West Wednesday Line Dancing INSIDE Spot 1 Grill & Music Hall in Brampton
+Location Name: Spot 1 Grill & Music Hall
+Latitude: 43.68572
+Longitude: -79.7252199
+
+Event: Wednesday Trivia in Brampton
+Location Name: Bovaird Fionn MacCool's (120 Great Lakes Drive, Brampton, ON, Canada)
+Latitude: 43.729896861216
+Longitude: -79.764367635541
+
+Event: OPEN HOUSE: 384 Centre St N., Brampton
+Location Name: 384 Centre St N, Brampton, ON L6V 3L6, Canada
+Latitude: 43.70816
+Longitude: -79.7714
+
+Event: Brampton Celebrity Hockey Classic
+Location Name: Susan Fennell Sportsplex 500 Ray Lawson Blvd
+Latitude: 43.6527
+Longitude: -79.73596
+
+Event: Downtown Brampton Cleanup with 'Concord in the City' 
+Location Name: St. Paul's United Church 
+Latitude: 43.685270655404
+Longitude: -79.758679151489
+
+Event: Warehouse moving out sale 
+Location Name: 390 Chrysler Dr, Brampton, ON L6S 5Z5, Canada
+Latitude: 43.74596
+Longitude: -79.71216
+
+Event: Parangfest in the West
+Location Name: 340 Vodden St E Brampton , Ont
+Latitude: 43.70854
+Longitude: -79.75392
+
+Event: Brampton – Pet Valu - (905) 451-6513
+Location Name: 370 Main St. N. Brampton, ON L6V 4A4
+Latitude: 43.69601
+Longitude: -79.77241
+
+Event: Diwali Gala with Sanjay Kapoor
+Location Name: Courtyard by Marriott Brampton (90 Biscayne Crescent, Brampton, ON, Canada)
+Latitude: 43.681027
+Longitude: -79.712214
+
+Event: Yu-Gi-Oh! Modern Fridays
+Location Name: 22 Main St. S. 2nd Floor, Brampton, ON, Canada, Ontario L6W 2C3
+Latitude: 43.68559
+Longitude: -79.75918
+
+Event: Pokemon League Standard Sundays
+Location Name: 22 Main St. S. 2nd Floor, Brampton, ON, Canada, Ontario L6W 2C3
+Latitude: 43.68559
+Longitude: -79.75918
+
+Event: Spot 1 Grill & Music Hall
+Location Name: Spot 1 Grill & Music Hall
+Latitude: 43.68572
+Longitude: -79.7252199
+
