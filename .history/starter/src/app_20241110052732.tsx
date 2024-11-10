@@ -388,6 +388,11 @@ const App: React.FC = () => {
 
   const lineColors = [
     "#3357FF", // Blue
+    "#FFFF33", // Yellow
+    "#FF33FF", // Pink
+    "#33FFFF", // Cyan
+    "#FF8C00", // Orange
+    // Add more colors if you have more routes
   ];
 
   const TheMap = () => (

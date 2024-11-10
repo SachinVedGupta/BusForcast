@@ -382,12 +382,19 @@ const App: React.FC = () => {
       start: { lat: 43.686943, lng: -79.763086 },
       end: { lat: 43.674737, lng: -79.822793 },
     },
-  ];
+];
 
   
 
   const lineColors = [
+    "#FF5733", // Red
+    "#33FF57", // Green
     "#3357FF", // Blue
+    "#FFFF33", // Yellow
+    "#FF33FF", // Pink
+    "#33FFFF", // Cyan
+    "#FF8C00", // Orange
+    // Add more colors if you have more routes
   ];
 
   const TheMap = () => (

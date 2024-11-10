@@ -1,4 +1,3 @@
-// src/app.tsx
 import { fetchEvents } from "./api";
 import React, { useEffect, useState, useRef, useCallback } from "react";
 import { createRoot } from "react-dom/client";
@@ -34,7 +33,6 @@ const App: React.FC = () => {
         });
         const data = await response.json();
 
-        // Map the response to the `Poi` type
         const fetchedLocations: Poi[] = data.map((event: any) => ({
           key: event.name,
           location: {
@@ -52,15 +50,6 @@ const App: React.FC = () => {
     fetchLocations();
   }, []);
 
-  // const locations: Poi[] = [
-  //   { key: "operaHouse", location: { lat: -33.8567844, lng: 151.213108 } },
-  //   { key: "tarongaZoo", location: { lat: -33.8472767, lng: 151.2188164 } },
-  //   { key: "manlyBeach", location: { lat: -33.8209738, lng: 151.2563253 } },
-  //   { key: "Home", location: { lat: 43.6323, lng: -79.7672 } },
-  //   // Add other locations...
-  // ];
-
-  // Example of start and end points that you want to connect
   const routeCoordinates = [
     {
       start: { lat: 43.676851, lng: -79.794655 },
@@ -384,39 +373,26 @@ const App: React.FC = () => {
     },
   ];
 
-  
-
-  const lineColors = [
-    "#3357FF", // Blue
-  ];
-
   const TheMap = () => (
     <div style={{ width: "100vw", height: "100vh" }}>
       <APIProvider
-        apiKey={"AIzaSyB3nBgYHz5t3vyrCFNVEMveFwW4SoLVhjs"}
+        apiKey={"YOUR_GOOGLE_MAPS_API_KEY"}
         onLoad={() => console.log("Maps API has loaded.")}
       >
         <Map
           defaultZoom={13}
-          defaultCenter={{ lat: -33.860664, lng: 151.208138 }}
+          defaultCenter={{ lat: 43.7, lng: -79.8 }} // Center near Brampton
           onCameraChanged={(ev: MapCameraChangedEvent) =>
-            console.log(
-              "camera changed:",
-              ev.detail.center,
-              "zoom:",
-              ev.detail.zoom
-            )
+            console.log("camera changed:", ev.detail.center, "zoom:", ev.detail.zoom)
           }
-          mapId="YOUR_MAP_ID"
         >
           <PoiMarkers
             pois={locations}
             routeCoordinates={routeCoordinates}
-            lineColors={lineColors}
           />
         </Map>
       </APIProvider>
-      <Input style={{ zindex: 1 }} />
+      <Input style={{ zIndex: 1 }} />
     </div>
   );
 
@@ -426,114 +402,90 @@ const App: React.FC = () => {
       start: google.maps.LatLngLiteral;
       end: google.maps.LatLngLiteral;
     }[];
-    lineColors: string[];
   }) => {
     const map = useMap();
     const [markers, setMarkers] = useState<{ [key: string]: Marker }>({});
     const clusterer = useRef<MarkerClusterer | null>(null);
-    const [circleCenter, setCircleCenter] = useState<google.maps.LatLng | null>(
-      null
-    );
-    const handleClick = useCallback((ev: google.maps.MapMouseEvent) => {
-      if (!map) return;
-      if (!ev.latLng) return;
-      console.log("marker clicked: ", ev.latLng.toString());
-      map.panTo(ev.latLng);
-      setCircleCenter(ev.latLng);
-    });
-    // Initialize MarkerClusterer, if the map has changed
-    useEffect(() => {
-      if (!map) return;
-      if (!clusterer.current) {
-        clusterer.current = new MarkerClusterer({ map });
-      }
-    }, [map]);
-    // Update markers, if the markers array has changed
-    useEffect(() => {
-      clusterer.current?.clearMarkers();
-      clusterer.current?.addMarkers(Object.values(markers));
-    }, [markers]);
-    const setMarkerRef = (marker: Marker | null, key: string) => {
-      if (marker && markers[key]) return;
-      if (!marker && !markers[key]) return;
-      setMarkers((prev) => {
-        if (marker) {
-          return { ...prev, [key]: marker };
-        } else {
-          const newMarkers = { ...prev };
-          delete newMarkers[key];
-          return newMarkers;
-        }
-      });
-    };
-
-    // Draw multiple routes with different colors based on the routeCoordinates array
+    
     useEffect(() => {
       if (map) {
-        const directionsService = new google.maps.DirectionsService();
-        const directionsRenderer = new google.maps.DirectionsRenderer();
-        directionsRenderer.setMap(map);
-        // Loop through the provided routes and calculate each one
+        // Draw routes and highlight closest routes to each event
         props.routeCoordinates.forEach((route, index) => {
-          const request = {
-            origin: route.start,
-            destination: route.end,
-            travelMode: google.maps.TravelMode.DRIVING, // Change to WALKING, BICYCLING, etc. as needed
-          };
-          directionsService.route(request, (result, status) => {
-            if (status === google.maps.DirectionsStatus.OK) {
-              const polylineOptions = {
-                strokeColor: props.lineColors[index % props.lineColors.length], // Assign color to the route
-                strokeOpacity: 0.7,
-                strokeWeight: 5,
-              };
-              const routeRenderer = new google.maps.DirectionsRenderer({
-                polylineOptions: polylineOptions,
-                suppressMarkers: true, // This prevents start/end markers from showing
-              });
-              routeRenderer.setMap(map);
-              routeRenderer.setDirections(result);
-            } else {
-              console.error("Error fetching directions: ", status);
-            }
-          });
+          drawRoute(route.start, route.end, "#3357FF", map);
+        });
+
+        props.pois.forEach((poi) => {
+          const closestRoute = findClosestRoute(poi.location, props.routeCoordinates);
+          drawRoute(closestRoute.start, closestRoute.end, "#FF0000", map);
         });
       }
-    }, [map, props.routeCoordinates, props.lineColors]);
+    }, [map, props.pois, props.routeCoordinates]);
+
+    const drawRoute = (
+      start: google.maps.LatLngLiteral,
+      end: google.maps.LatLngLiteral,
+      color: string,
+      map: google.maps.Map
+    ) => {
+      const routePath = new google.maps.Polyline({
+        path: [start, end],
+        geodesic: true,
+        strokeColor: color,
+        strokeOpacity: 1.0,
+        strokeWeight: 2,
+      });
+      routePath.setMap(map);
+    };
+
+    const calculateDistance = (point1: google.maps.LatLngLiteral, point2: google.maps.LatLngLiteral) => {
+      const R = 6371; // Radius of the Earth in km
+      const dLat = ((point2.lat - point1.lat) * Math.PI) / 180;
+      const dLng = ((point2.lng - point1.lng) * Math.PI) / 180;
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos((point1.lat * Math.PI) / 180) * Math.cos((point2.lat * Math.PI) / 180) *
+        Math.sin(dLng / 2) * Math.sin(dLng / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c; // Distance in km
+    };
+
+    const findClosestRoute = (
+      eventLocation: google.maps.LatLngLiteral,
+      routes: { start: google.maps.LatLngLiteral; end: google.maps.LatLngLiteral }[]
+    ) => {
+      let closestRoute = routes[0];
+      let minDistance = calculateDistance(eventLocation, routes[0].start);
+
+      routes.forEach((route) => {
+        const startDistance = calculateDistance(eventLocation, route.start);
+        const endDistance = calculateDistance(eventLocation, route.end);
+
+        const routeDistance = Math.min(startDistance, endDistance);
+        if (routeDistance < minDistance) {
+          minDistance = routeDistance;
+          closestRoute = route;
+        }
+      });
+
+      return closestRoute;
+    };
+
     return (
       <>
-        <Circle
-          radius={800}
-          center={circleCenter}
-          strokeColor={"#0c4cb3"}
-          strokeOpacity={1}
-          strokeWeight={3}
-          fillColor={"#3b82f6"}
-          fillOpacity={0.3}
-        />
-        {locations.map((poi: Poi) => (
+        {props.pois.map((poi) => (
           <AdvancedMarker
             key={poi.key}
             position={poi.location}
-            ref={(marker) => setMarkerRef(marker, poi.key)}
-            clickable={true}
-            onClick={handleClick}
-          >
-            <Pin
-              background={"#FBBC04"}
-              glyphColor={"#000"}
-              borderColor={"#000"}
-            />
-          </AdvancedMarker>
+            map={map}
+          />
         ))}
       </>
     );
   };
 
-  const root = createRoot(document.getElementById("app"));
-  root.render(<TheMap />);
-
-  return <div>{error && <p style={{ color: "red" }}>Error: {error}</p>}</div>;
+  return <TheMap />;
 };
 
-export default App;
+const container = document.getElementById("root");
+const root = createRoot(container!);
+root.render(<App />);
