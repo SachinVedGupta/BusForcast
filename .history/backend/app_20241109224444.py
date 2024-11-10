@@ -9,7 +9,7 @@ CORS(app)
 def fetch_events():
     try:
         # Initialize ApifyClient with your token
-        client = ApifyClient("apify_api_emuPCriKPNO6Vyj6amQVrPBaNnYTEb1iW696")
+        client = ApifyClient("apify_api_emuPCriKPNO6Vyj6amQVrPBaNnYTEb1iW696)
 
         # Prepare the Actor input (use searchQueries if provided in request, or startUrls as fallback)
         run_input = request.json.get("run_input", {
