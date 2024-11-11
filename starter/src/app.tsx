@@ -46,8 +46,6 @@ const App = () => {
         findNearest();
       } catch (error) {
         console.error("Error fetching events:", error);
-        console.error("Will now use previous already inputted data for the event locations")
-
         const data = [
           {
               "imageUrl": "https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/447620249_1337942804151253_3454994074549777002_n.jpg?stp=c206.0.1508.1005a_dst-jpg_s168x128&_nc_cat=109&ccb=1-7&_nc_sid=75d36f&_nc_ohc=MR67YpyfifoQ7kNvgFsS4V6&_nc_zt=23&_nc_ht=scontent-vie1-1.xx&_nc_gid=ANE1bVXTWfhRy3ZEheREsiR&oh=00_AYAXP7hS5uULabbIaj3hX7mwTuPkG16yUIxS80rPOta0rg&oe=67384C82",
@@ -127,8 +125,10 @@ const App = () => {
               "location.countryCode": "CA",
               "url": "https://www.facebook.com/events/1564901844294019/"
           }
-        ]
+        ];
 
+
+        // Map the response to the `Poi` type
         const fetchedLocations: Poi[] = data.map((event: any) => ({
           key: event.name,
           location: {
@@ -137,6 +137,8 @@ const App = () => {
           },
         }));
 
+        setLocations(fetchedLocations);
+        findNearest();
       }
     };
 
