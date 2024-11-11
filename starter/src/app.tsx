@@ -46,6 +46,7 @@ const App = () => {
         findNearest();
       } catch (error) {
         console.error("Error fetching events:", error);
+        console.error("If error with fetching locations, use the following locations as an example")
         const data = [
           {
               "latitude": 43.729896861216,
