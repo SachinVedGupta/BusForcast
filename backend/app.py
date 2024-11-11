@@ -4,10 +4,11 @@ from apify_client import ApifyClient
 
 app = Flask(__name__)
 
+# Allow CORS from your frontend domain only
+CORS(app, resources={r"/api/*": {"origins": "https://bus-forcast.vercel.app"}})
 
-
-CORS(app)
 import random
+
 @app.route('/api/fetch-events', methods=['POST'])
 def fetch_events():
     try:
