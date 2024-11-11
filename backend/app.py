@@ -12,7 +12,7 @@ import random
 def fetch_events():
     try:
         # Initialize ApifyClient with your token
-        client = ApifyClient("apify_api_ECGXPFPE327Rs9wlTSIRIdj0F9MBgt1B3CF3")
+        client = ApifyClient("apify_api_I7D7FFnekGCC3HWhHkBCGs8OBe7LPS473wme")
 
         # Prepare the Actor input (use searchQueries if provided in request, or startUrls as fallback)
         run_input = request.json.get("run_input", {

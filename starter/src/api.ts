@@ -1,5 +1,5 @@
 export async function fetchEvents(runInput: object) {
-  const response = await fetch("http://localhost:5000/api/fetch-events", {
+  const response = await fetch("https://bus-forcast-backend.vercel.app/api/fetch-events", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
