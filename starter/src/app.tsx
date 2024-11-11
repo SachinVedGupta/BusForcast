@@ -46,6 +46,97 @@ const App = () => {
         findNearest();
       } catch (error) {
         console.error("Error fetching events:", error);
+        console.error("Will now use previous already inputted data for the event locations")
+
+        const data = [
+          {
+              "imageUrl": "https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/447620249_1337942804151253_3454994074549777002_n.jpg?stp=c206.0.1508.1005a_dst-jpg_s168x128&_nc_cat=109&ccb=1-7&_nc_sid=75d36f&_nc_ohc=MR67YpyfifoQ7kNvgFsS4V6&_nc_zt=23&_nc_ht=scontent-vie1-1.xx&_nc_gid=ANE1bVXTWfhRy3ZEheREsiR&oh=00_AYAXP7hS5uULabbIaj3hX7mwTuPkG16yUIxS80rPOta0rg&oe=67384C82",
+              "name": "We Will Rock You by Brampton Music Theatre",
+              "utcStartDate": "2024-11-01T23:30:00.000Z",
+              "duration": "9 days",
+              "usersGoing": 0,
+              "usersInterested": 0,
+              "organizedBy": "Event by Brampton On Stage",
+              "location.name": "The Rose Mainstage",
+              "location.city": null,
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/1245433933099761/"
+          },
+          {
+              "imageUrl": "https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/438077650_835187341981849_1715461667672574476_n.jpg?stp=c200.0.600.400a_dst-jpg_s168x128&_nc_cat=110&ccb=1-7&_nc_sid=75d36f&_nc_ohc=IX96w1w9leoQ7kNvgGL1BQc&_nc_zt=23&_nc_ht=scontent-vie1-1.xx&_nc_gid=ANE1bVXTWfhRy3ZEheREsiR&oh=00_AYBT4TI3aOkzVzFPXHljBrOlH-H9ssS42xYaLG7N4d34yg&oe=67386879",
+              "name": "Brampton Celebrity Hockey Classic",
+              "utcStartDate": "2024-11-07T13:00:00.000Z",
+              "duration": null,
+              "usersGoing": 4,
+              "usersInterested": 5,
+              "organizedBy": "Event by Easter Seals Ontario and Jenn Ashley",
+              "location.name": "Susan Fennell Sportsplex 500 Ray Lawson Blvd",
+              "location.city": null,
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/1392318574816143/"
+          },
+          {
+              "imageUrl": "https://scontent-vie1-1.xx.fbcdn.net/v/t39.30808-6/458644623_8573423782701987_4807666067697848691_n.jpg?stp=c160.0.1728.1152a_dst-jpg_s168x128&_nc_cat=109&ccb=1-7&_nc_sid=75d36f&_nc_ohc=3Zum-U81fGoQ7kNvgE8w6-y&_nc_zt=23&_nc_ht=scontent-vie1-1.xx&_nc_gid=ANE1bVXTWfhRy3ZEheREsiR&oh=00_AYCQLcTSzr9oh5kfyBDsCyYG00AZeH8CMSZHSxmYMUQ8Dg&oe=673835BE",
+              "name": "Wednesday Trivia in Brampton",
+              "utcStartDate": "2024-09-26T00:00:00.000Z",
+              "duration": "1.5 hours",
+              "usersGoing": 1,
+              "usersInterested": 0,
+              "organizedBy": "Event by Donny Lovering",
+              "location.name": "Bovaird Fionn MacCool's (120 Great Lakes Drive, Brampton, ON, Canada)",
+              "location.city": null,
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/1662146337961516/"
+          },
+          {
+              "imageUrl": "https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/438097205_862804562530296_9178317081029100763_n.jpg?stp=c66.0.164.110a_cp6_dst-jpg_p296x100&_nc_cat=107&ccb=1-7&_nc_sid=75d36f&_nc_ohc=MiQj32Z0nFQQ7kNvgG1-bBC&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=AAw_sqRWHQwYt_wxpaQ9Afo&oh=00_AYCyJnR2S9C-DmnDEyptdPkaKR9i-r6zhztRL0mnsueTLg&oe=67383325",
+              "name": "Pokemon League Standard Sundays",
+              "utcStartDate": "2024-05-05T17:00:00.000Z",
+              "duration": "3 hours",
+              "usersGoing": 1,
+              "usersInterested": 58,
+              "organizedBy": "Event by Dragon World - Cards Games and Collectibles",
+              "location.name": "22 Main St. S. 2nd Floor, Brampton, ON, Canada, Ontario L6W 2C3",
+              "location.city": null,
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/957704562348507/"
+          },
+          {
+              "imageUrl": "https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/450926756_978188087649046_4113896046274285283_n.png?stp=c179.0.654.436a_dst-jpg_s168x128&_nc_cat=106&ccb=1-7&_nc_sid=75d36f&_nc_ohc=ysYtM5TPHeUQ7kNvgG3jFX3&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=AAw_sqRWHQwYt_wxpaQ9Afo&oh=00_AYCcE_pqtckwaA41wwzj5CbBuv4R8KBPAENiJoGlgKjPmg&oe=673832EE",
+              "name": "Brampton – Pet Valu - (905) 866-6802",
+              "utcStartDate": "2024-11-07T15:00:00.000Z",
+              "duration": null,
+              "usersGoing": 1,
+              "usersInterested": 0,
+              "organizedBy": "Event by Kissable K9",
+              "location.name": "9445 Mississauga Rd, Brampton, ON L6X 0Z8, Canada",
+              "location.city": null,
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/464175772919963/"
+          },
+          {
+              "imageUrl": "https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/416927712_758180089680504_2054335978133328099_n.jpg?stp=c78.0.585.390a_dst-jpg_s168x128&_nc_cat=107&ccb=1-7&_nc_sid=75d36f&_nc_ohc=HFtCqjUM6R4Q7kNvgESUGcY&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=AAw_sqRWHQwYt_wxpaQ9Afo&oh=00_AYCppHLSK3GCq3JlpvX6DYuKEic4o-dRjmbxrEvWayhSYg&oe=67385276",
+              "name": "Sit 'n' Stitch",
+              "utcStartDate": "2024-01-11T18:00:00.000Z",
+              "duration": "3 hours",
+              "usersGoing": 1,
+              "usersInterested": 46,
+              "organizedBy": "Event by Brampton Library",
+              "location.name": "Brampton Library (Four Corners Branch)",
+              "location.city": "Brampton",
+              "location.countryCode": "CA",
+              "url": "https://www.facebook.com/events/1564901844294019/"
+          }
+        ]
+
+        const fetchedLocations: Poi[] = data.map((event: any) => ({
+          key: event.name,
+          location: {
+            lat: parseFloat(event.latitude),
+            lng: parseFloat(event.longitude),
+          },
+        }));
+
       }
     };
 
