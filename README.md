@@ -1,5 +1,8 @@
 Won at BramHacks (City of Brampton) (Brampton Transit theme) (Recognized by Brampton Transit Officials for its impact and innovation)
 
+See the LinkedIn Post about it: [Link](https://www.linkedin.com/posts/sachin-ved-gupta_hackathon-bramhacks-innovation-activity-7262800206583230464-jVM8?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAEmlB0MBTKqgxNzZZEh9IbFpWQ42BDEyEgA)
+
+About
 - Scrape data on upcoming parties/events occuring in Brampton from Facebook
 - Display upcoming events and Brampton Transit bus routes
 - Based on the events, amount of people attending them, and where the people are coming from (based on the event type and demogrpahic/income data of expected vistors) bus routes nearby are coloured Red to indicate high traffic/demand
