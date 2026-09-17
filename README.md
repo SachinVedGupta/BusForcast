@@ -1,4 +1,4 @@
-Won at BramHacks (City of Brampton)
+Won at BramHacks (City of Brampton) (Brampton Transit theme) (Recognized by Brampton Transit Officials for its impact and innovation)
 
 - Scrape data on upcoming parties/events occuring in Brampton from Facebook
 - Display upcoming events and Brampton Transit bus routes
